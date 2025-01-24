@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Footer from '../../Components/Footer'
 import LogoImage from "/src/assets/images/panda-151923_1280.png";
-import API_URL from '../../Pages/Constants/Constants'
+import API_URL from '../Constants/Constants'
 
 const Registration = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
