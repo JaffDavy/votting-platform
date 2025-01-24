@@ -33,12 +33,12 @@ const HomePage = () => {
                 />
                 <div className="absolute w-full h-full bg-[#083143] opacity-75"></div>
                 <div className="relative z-10 flex items-center justify-center gap-8 flex-col 3xl:top-80 top-52 text-white">
-                    <h1 className="text-1xl sm:text-5xl lg:text-6xl xl:text-7xl 3xl:text-9xl 2xl:text-8xl text-white">Awarding <span className='text-button-c'>The </span>Next Generations</h1>
+                    <h1 className="text-1xl sm:text-5xl lg:text-6xl xl:text-7xl 3xl:text-9xl 2xl:text-8xl text-white">Votespher <span className='text-button-c'>Your Voice, </span>Your Power</h1>
                     <p className="text-sm text-center text-gray-300 sm:text-1xl xl:text-1xl 3xl:text-3xl 2xl:text-2xl">
-                        "Every vote is a voice, every voice is a choice. Empowering you to shape the future, one vote at a time. <br />
-                        In a world where every voice matters, your vote is more than just a mark on a ballot— <br />
-                        it's a chance to stand for what you believe in and make a lasting impact. Together, we create the change <br />
-                        we wish to see, one decision, one choice, one vote at a time."
+                        "Your vote is your power, your voice is your impact. Every choice you make helps shape the future we all share. <br />
+                        In a world where decisions define progress, casting your vote is more than a right—<br />
+                        it’s a commitment to change, a stand for your beliefs, and a step toward a better tomorrow. <br />
+                        Together, we build the future, one decision, one choice, one vote at a time."
                     </p>
                     <Link to="/register" >                     <button className="bg-button-c h-12 w-72 text-2xl rounded-md 3xl:w-[40rem]  3xl:h-20  3xl:text-5xl">Get Started</button>
                     </Link>
@@ -91,7 +91,7 @@ const HomePage = () => {
                         <div className='flex items-start justify-start flex-col gap-2 lg:mt-9 3xl:mr-40  '>
                             <h1 className='text-button-c text-1xl lg:text-2xl 2xl:text-4xl 3xl:text-6xl xl:text-4xl'>About us</h1>
 
-                            <h3 className='text-custom-blue text-2xl lg:text-2xl  xl:text-4xl 2xl:text-6xl 3xl:text-7xl'>   Welcome to VoteHub, a platform designed to empower individuals and organizations to participate in the democratic process.</h3>
+                            <h3 className='text-custom-blue text-2xl lg:text-2xl  xl:text-4xl 2xl:text-6xl 3xl:text-7xl'>   Welcome to Votespher, a platform designed to empower individuals and organizations to participate in the democratic process.</h3>
                             <p className='text-sm 2xl:text-xl 3xl:text-4xl xl:text-2xl font-light'>  Our mission is to  provide a modern, reliable, and accessible solution  for voting, ensuring  that every  voice is heard,  every vote is counted, and every election is fair.
 
                                 Whether you are organizing a local election, conducting a poll, or managing a corporate decision -making process, VoteHub offers a seamless experience for both administrators and voters. Our platform uses  authentication protocols to ensure the security, privacy, and integrity of every vote.
@@ -254,12 +254,12 @@ const HomePage = () => {
                 <div className='absolute flex items-center justify-center flex-col text-center text-white'>
                     <h1 className='text-3xl font-bold mb-2 xl:text-5xl  3xl:text-7xl'>Do You Have Any Contest?</h1>
                     <p className='text-lg mb-4 font-thin 3xl:text-4xl'>Register with Our Virtual Voting Platform</p>
-                    <a href="https://www.linkedin.com/in/ayuk-giress-077734294/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BjucQuBkgSmOUVQxCm%2B4d3Q%3D%3D">  <button className='px-4 py-2 bg-custom-blue text-white rounded-md w-36 h-10 3xl:w-[25rem] 3xl:h-16 3xl:text-3xl 2xl:w-[20rem] 2xl:text-2xl 2xl:h-14'>Contact Us</button></a>                    
+                    <a href="https://www.linkedin.com/in/ayuk-giress-077734294/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BjucQuBkgSmOUVQxCm%2B4d3Q%3D%3D">  <button className='px-4 py-2 bg-custom-blue text-white rounded-md w-36 h-10 3xl:w-[25rem] 3xl:h-16 3xl:text-3xl 2xl:w-[20rem] 2xl:text-2xl 2xl:h-14'>Contact Us</button></a>
                 </div>
             </section>
 
-           
-           <Footer/>
+
+            <Footer />
         </>
     );
 };
