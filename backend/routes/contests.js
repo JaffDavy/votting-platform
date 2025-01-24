@@ -283,13 +283,22 @@ router.get('/:contestId', async (req, res) => {
 router.get("/contests/:contestId/contestants", async (req, res) => {
   try {
     const contestId = req.params.contestId;
-    const contest = await Contest.findById(contestId).populate("contestants"); 
-    res.json({ success: true, contestants: contest.contestants });
+
+    // Find contest and populate contestants
+    const contest = await Contest.findById(contestId).populate("contestants");
+
+    // Handle if contest not found
+    if (!contest) {
+      return res.status(404).json({ success: false, message: "Contest not found" });
+    }
+
+    res.json({ success: true, contestants: contest.contestants || [] });
   } catch (error) {
     console.error("Error fetching contestants:", error);
     res.status(500).json({ success: false, message: "Error fetching contestants" });
   }
 });
+
 
 
 router.get("/", async (req, res) => {
