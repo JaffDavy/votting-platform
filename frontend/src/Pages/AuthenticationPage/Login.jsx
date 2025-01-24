@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { useAuth } from '../../Pages/Contexts/AuthContext'
 import { Link } from "react-router-dom";
 import Footer from '../../Components/Footer'
-import API_URL from '../../Pages/Constants/Constants'
+import API_URL from '../Constants/Constants'
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);

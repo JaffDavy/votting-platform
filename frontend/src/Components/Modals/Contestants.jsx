@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
-import API_URL from '../../Pages/Constants/Constants'
+import API_URL from '../../Pages/Constants/Constants';
 
 const AddContestantModal = ({ isOpen, onClose, contestId, setContests, contestStatus }) => {
   const [contestants, setContestants] = useState([]);

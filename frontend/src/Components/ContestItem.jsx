@@ -1,7 +1,7 @@
 import React from "react";
 import { Trash2, Users, Trophy, Info } from "lucide-react";
 import ContestantItem from '../Components/ContastantItem'
-import API_URL from '../Pages/Constants/Constants'
+import API_URL from "../Pages/Constants/Constants";
 
 const ContestItem = ({
   contest,
