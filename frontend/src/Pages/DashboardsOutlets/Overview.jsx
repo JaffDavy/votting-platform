@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useAuth } from "../../Pages/Contexts/AuthContext";
 import ContestItem from "../../Components/ContestItem";
-import API_URL from "../../Pages/Constants/Constants";
+import API_URL from "../Constants/Constants";
 
 const Overview = () => {
   const { currentUser, currentUserLoading, isAuthenticated } = useAuth();
