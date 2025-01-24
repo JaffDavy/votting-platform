@@ -232,9 +232,9 @@ router.post("/refresh-token", async (req, res) => {
 router.get("/current-user", auth, async (req, res) => {
   try {
     console.log("Current user request received", req.user._id);
-    
+
     const user = await User.findById(req.user._id).select('-password');
-    
+
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -243,7 +243,7 @@ router.get("/current-user", auth, async (req, res) => {
     }
 
     console.log("Sending user data:", user);
-    
+
     res.json({
       success: true,
       data: user

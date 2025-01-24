@@ -1,5 +1,5 @@
 import React from 'react';
-import homePageImage from "/src/assets/images/pexels-steve-29506613.jpg";
+import homePageImage from "/src/assets/images/face-logo-8252748_1280.png";
 import { MdOutlineEventNote } from "react-icons/md";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { TbCategory } from "react-icons/tb";

@@ -11,7 +11,7 @@ import HomePage from "../src/Pages/LandingPage/HomePage";
 import Login from "../src/Pages/AuthenticationPage/Login";
 import Registration from "../src/Pages/AuthenticationPage/Registration";
 import { Toaster } from "sonner";
-import LogoImage from "/src/assets/images/2fa8fddc3b07465da808456a6a979854-free.png";
+import LogoImage from "/src/assets/images/face-logo-8252748_1280.png";
 import VerifyEmails from "../src/Components/VerifyEmails";
 import VerifyEmail from "../src/Components/VerifyEmail";
 import Dashboard from "../src/Pages/Dashboard/Dashboard";

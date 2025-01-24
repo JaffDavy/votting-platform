@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Footer from '../../Components/Footer'
-import LogoImage from "/src/assets/images/2fa8fddc3b07465da808456a6a979854-free.png";
+import LogoImage from "/src/assets/images/panda-151923_1280.png";
 import API_URL from '../../Pages/Constants/Constants'
 
 const Registration = () => {
