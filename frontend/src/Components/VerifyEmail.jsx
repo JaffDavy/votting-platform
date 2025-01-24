@@ -18,8 +18,10 @@ const VerifyEmail = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          body: JSON.stringify({}) // 👈 Add this to prevent missing body issues
         });
+        
   
         const data = await response.json();
   
