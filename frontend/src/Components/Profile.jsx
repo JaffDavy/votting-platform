@@ -42,9 +42,9 @@ const Profile = () => {
 
         <div className="space-y-2 w-full">
           <div className="text-center">
-            <span className="text-sm text-gray-400">Email</span>
+            <span className="text-sm text-gray-400">Welcome back</span>
             <h3 className="text-lg font-medium text-white break-all">
-              {currentUser.email}
+              {currentUser.username}
             </h3>
           </div>
 

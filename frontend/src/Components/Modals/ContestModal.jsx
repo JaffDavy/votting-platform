@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Upload } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { useAuth } from '../../Pages/Contexts/AuthContext'; 
+import { useAuth } from '../../Pages/Contexts/AuthContext';
 import API_URL from '../../Pages/Constants/Constants';
 
 const ContestModal = ({ isOpen, onClose, setContests }) => {
@@ -18,7 +18,7 @@ const ContestModal = ({ isOpen, onClose, setContests }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  const { currentUser } = useAuth(); 
+  const { currentUser } = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +59,6 @@ const ContestModal = ({ isOpen, onClose, setContests }) => {
       const submitData = new FormData();
 
       submitData.append('userId', currentUser.id);
-
       submitData.append('name', formData.name);
       submitData.append('description', formData.description);
       submitData.append('startDate', formData.startDate);
@@ -173,6 +172,23 @@ const ContestModal = ({ isOpen, onClose, setContests }) => {
                   Selected: {formData.coverPhoto.name}
                 </p>
               )}
+            </div>
+          </div>
+
+          {/* Contestant Images Section */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">Contestants</label>
+            <div className="flex flex-wrap gap-4">
+              {formData.contestants.map((contestant, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={contestant.imageUrl} // Assuming contestant has a valid imageUrl field
+                    alt={contestant.name}
+                    className="h-20 w-20 object-cover rounded-full"
+                  />
+                  <p className="text-sm text-gray-400 mt-2">{contestant.name}</p>
+                </div>
+              ))}
             </div>
           </div>
 
