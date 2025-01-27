@@ -69,6 +69,7 @@ const AddContestantModal = ({ isOpen, onClose, contestId, setContests, contestSt
             'Content-Type': 'multipart/form-data',
           },
         }
+  
       );
 
       if (response.data.success) {

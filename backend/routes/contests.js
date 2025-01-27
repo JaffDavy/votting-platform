@@ -28,31 +28,31 @@ const upload = multer({ storage });
 const calculateWinners = async (contest) => {
   const now = new Date();
   const endDate = new Date(contest.endDate);
-  
+
   if (endDate < now && contest.contestants?.length > 0) {
     const maxVotes = Math.max(...contest.contestants.map(c => c.votes || 0));
-    
+
     const winnerIds = contest.contestants
       .filter(c => (c.votes || 0) === maxVotes)
       .map(c => c._id);
-    
+
     await Contestant.updateMany(
       { contestId: contest._id },
       { isWinner: false }
     );
-    
+
     await Contestant.updateMany(
-      { 
+      {
         contestId: contest._id,
         _id: { $in: winnerIds }
       },
       { isWinner: true }
     );
-    
+
     contest.hasEnded = true;
     await contest.save();
   }
-  
+
   return contest;
 };
 
@@ -62,7 +62,7 @@ router.post("/", auth, upload.single('coverPhoto'), async (req, res) => {
     console.log("File:", req.file);
 
     const { name, description, startDate, endDate } = req.body;
-    const userId = req.user._id; 
+    const userId = req.user._id;
 
     if (!name || !description || !startDate || !endDate) {
       return res.status(400).json({
@@ -110,7 +110,7 @@ router.get("/all", auth, async (req, res) => {
     const userId = req.user._id;
 
     const contests = await Contest.find({ userId })
-      .populate('contestants') 
+      .populate('contestants')
       .sort({ createdAt: -1 });
 
     const processedContests = await Promise.all(
@@ -131,28 +131,25 @@ router.get("/all", auth, async (req, res) => {
 });
 
 
-
-
-
 router.post("/:contestId/contestants", contestUpload, async (req, res) => {
   try {
     const { contestId } = req.params;
     const { contestants } = req.body;
-    
+
     const contestantPhotos = req.files.contestants || [];
 
     if (!contestants || !Array.isArray(contestants)) {
-      return res.status(400).json({ 
-        success: false, 
-        error: "Contestants should be an array" 
+      return res.status(400).json({
+        success: false,
+        error: "Contestants should be an array"
       });
     }
 
     const contest = await Contest.findById(contestId);
     if (!contest) {
-      return res.status(404).json({ 
-        success: false, 
-        error: "Contest not found" 
+      return res.status(404).json({
+        success: false,
+        error: "Contest not found"
       });
     }
 
@@ -174,7 +171,7 @@ router.post("/:contestId/contestants", contestUpload, async (req, res) => {
     console.error("Error adding contestants:", error);
     res.status(500).json({
       success: false,
-      error: "Error adding contestants to contest",
+      error: error.message || "Error adding contestants",
     });
   }
 });
@@ -187,16 +184,16 @@ router.patch("/:contestId/publish", auth, async (req, res) => {
     const contest = await Contest.findById(contestId).populate('contestants');
 
     if (!contest) {
-      return res.status(404).json({ 
-        success: false, 
-        error: "Contest not found" 
+      return res.status(404).json({
+        success: false,
+        error: "Contest not found"
       });
     }
 
     if (contest.userId.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ 
-        success: false, 
-        error: "You do not have permission to modify this contest" 
+      return res.status(403).json({
+        success: false,
+        error: "You do not have permission to modify this contest"
       });
     }
 
@@ -220,9 +217,9 @@ router.patch("/:contestId/publish", auth, async (req, res) => {
     });
   } catch (error) {
     console.error("Error updating contest publish status:", error);
-    res.status(500).json({ 
-      success: false, 
-      error: "Failed to update contest publish status" 
+    res.status(500).json({
+      success: false,
+      error: "Failed to update contest publish status"
     });
   }
 });
@@ -278,6 +275,35 @@ router.get('/:contestId', async (req, res) => {
   }
 });
 
+router.post("/contests/:contestId/contestants", async (req, res) => {
+  try {
+    const contestId = req.params.contestId;
+    const { name, image } = req.body; // Extract contestant details
+
+    if (!name || !image) {
+      return res.status(400).json({ success: false, message: "Name and image are required" });
+    }
+
+    // Find the contest
+    const contest = await Contest.findById(contestId);
+    if (!contest) {
+      return res.status(404).json({ success: false, message: "Contest not found" });
+    }
+
+    // Create new contestant
+    const newContestant = new Contestant({ name, image });
+    await newContestant.save();
+
+    // Add contestant to contest
+    contest.contestants.push(newContestant);
+    await contest.save();
+
+    res.status(201).json({ success: true, message: "Contestant added", contestant: newContestant });
+  } catch (error) {
+    console.error("Error adding contestant:", error);
+    res.status(500).json({ success: false, message: "Error adding contestant" });
+  }
+});
 
 
 router.get("/contests/:contestId/contestants", async (req, res) => {
@@ -324,21 +350,21 @@ router.get("/:contestId/contestants", async (req, res) => {
       .populate('contestants');
 
     if (!contest) {
-      return res.status(404).json({ 
-        success: false, 
-        message: "Contest not found" 
+      return res.status(404).json({
+        success: false,
+        message: "Contest not found"
       });
     }
 
-    res.json({ 
-      success: true, 
-      data: contest.contestants 
+    res.json({
+      success: true,
+      data: contest.contestants
     });
   } catch (error) {
     console.error("Error fetching contestants:", error);
-    res.status(500).json({ 
-      success: false, 
-      message: "Error fetching contestants" 
+    res.status(500).json({
+      success: false,
+      message: "Error fetching contestants"
     });
   }
 });
@@ -350,11 +376,11 @@ router.post("/:contestId/vote", async (req, res) => {
   const { contestId } = req.params;
   const { contestantId } = req.body;
 
-  const voterId = req.ip 
+  const voterId = req.ip
 
   try {
-    if (!mongoose.Types.ObjectId.isValid(contestId) || 
-        !mongoose.Types.ObjectId.isValid(contestantId)) {
+    if (!mongoose.Types.ObjectId.isValid(contestId) ||
+      !mongoose.Types.ObjectId.isValid(contestantId)) {
       return res.status(400).json({
         success: false,
         error: "Invalid contest or contestant ID"
@@ -421,7 +447,7 @@ router.post("/:contestId/vote", async (req, res) => {
 
     const updatedContest = await Contest.findById(contestId)
       .populate('contestants');
-    
+
     res.json({
       success: true,
       message: "Vote recorded successfully",
@@ -444,16 +470,16 @@ router.delete("/:contestId", auth, async (req, res) => {
 
     const contest = await Contest.findById(contestId);
     if (!contest) {
-      return res.status(404).json({ 
-        success: false, 
-        error: "Contest not found" 
+      return res.status(404).json({
+        success: false,
+        error: "Contest not found"
       });
     }
 
     if (contest.userId.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ 
-        success: false, 
-        error: "You do not have permission to delete this contest" 
+      return res.status(403).json({
+        success: false,
+        error: "You do not have permission to delete this contest"
       });
     }
 
@@ -462,15 +488,15 @@ router.delete("/:contestId", auth, async (req, res) => {
 
     await Contest.findByIdAndDelete(contestId);
 
-    res.status(200).json({ 
-      success: true, 
-      message: "Contest deleted successfully" 
+    res.status(200).json({
+      success: true,
+      message: "Contest deleted successfully"
     });
   } catch (error) {
     console.error("Error deleting contest:", error);
-    res.status(500).json({ 
-      success: false, 
-      error: "Failed to delete contest" 
+    res.status(500).json({
+      success: false,
+      error: "Failed to delete contest"
     });
   }
 });
@@ -481,7 +507,7 @@ router.get("/:contestId/winners", async (req, res) => {
   try {
     const contest = await Contest.findById(req.params.contestId)
       .populate('contestants');
-    
+
     if (!contest) {
       return res.status(404).json({
         success: false,
@@ -490,7 +516,7 @@ router.get("/:contestId/winners", async (req, res) => {
     }
 
     const winners = contest.contestants.filter(c => c.isWinner);
-    
+
     res.json({
       success: true,
       data: {
@@ -513,7 +539,7 @@ router.get("/view/:contestId", async (req, res) => {
   try {
     const contest = await Contest.findById(req.params.contestId)
       .where("isPublished")
-      .equals(true);  
+      .equals(true);
 
     if (!contest) {
       return res
